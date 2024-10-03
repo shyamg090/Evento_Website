@@ -27,6 +27,7 @@ const event_schema = new mongoose.Schema({
     time: String,
     price: Number,
     category: String,
+    image : String,
     intrested: Array,
     byuser : {
         type : mongoose.Schema.Types.ObjectId,

@@ -84,14 +84,6 @@ const signinController = async (req, res) => {
 
     try {
 
-        // const jwt_verify = jwt.verify( jwt_token , process.env.JWT_SECRET)
-
-        // if(jwt_verify.success){
-        //     res.json({
-        //         msg : 'Already signed in'
-        //     })
-        // }
-
         const existing_user = await User.findOne(
             {
                 username: username,
@@ -122,8 +114,16 @@ const signinController = async (req, res) => {
     }
 }
 
-
 const addedeventsController = async (req, res)=>{
+
+    if (!req.file) {
+        return res.status(400).send('No file uploaded or file type is not an image.');
+    }
+
+    // res.json({
+    //     'file' : req.file
+    // })
+
 
     const event_zod_schema = {
         eventname: z.string(),
@@ -134,6 +134,7 @@ const addedeventsController = async (req, res)=>{
         time: z.string().time(),
         price: z.number().int(),
         category: z.string(),
+        image : z.any(),
         intrested: z.array(),
         byuser : z.string()
     }
@@ -146,15 +147,10 @@ const addedeventsController = async (req, res)=>{
         })
     }
 
-    const new_event = new Events({
-        
+    res.json({
+        msg : 'so you were authorized',
+        username : req.email,
     })
-
-
-    // res.json({
-    //     msg : 'so you were authorized',
-    //     username : req.email,
-    // })
 }
 
 const eventsController = async (req,res)=>{
