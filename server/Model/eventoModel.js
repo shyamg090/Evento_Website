@@ -30,10 +30,6 @@ const event_schema = new mongoose.Schema({
     eventimage : String,
     intrested: Array,
     byuser : String
-    // byuser : {
-    //     type : mongoose.Schema.Types.ObjectId,
-    //     ref : 'User'
-    // }//get the user by the help of jwt keep email id as reference
 })
 
 const User = mongoose.model('User', user_schema);

@@ -1,5 +1,5 @@
 const express = require('express')
-const { signupController, signinController, addedeventsController } = require('../Controllers/routes_controllers');
+const { signupController, signinController, addedeventsController, geteventsController } = require('../Controllers/routes_controllers');
 const { user_auth } = require('../Middlewares/auth');
 require('dotenv').config()
 
@@ -13,9 +13,6 @@ router.post('/signup', signupController);
 
 router.post('/signin', signinController);
 
-router.get('/events', )
-
-router.get('/events/:_id', )
 // -------------------------------- File upload multer -------------------------
 cloudinary.config({
     cloud_name : process.env.CLOUD_NAME,
@@ -26,5 +23,11 @@ cloudinary.config({
 const upload = multer( { dest : './uploads/' })
 
 router.post('/user/addevent', user_auth , upload.single('eventimage') , addedeventsController);
+// --------------------------------------------------------------------------------
+
+router.get('/events', geteventsController)
+
+router.get('/events/:_id', )
+
 
 module.exports = { router }

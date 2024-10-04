@@ -69,10 +69,7 @@ const signupController = async (req, res) => {
 }
 
 const signinController = async (req, res) => {
-    // console.log(req.body);
-
-    // const jwt_token = req.headers.authorization;
-
+  
     const valid_user = user_zod_schema.safeParse(req.body.user);
     if (!valid_user.success) {
         res.status(400).json({
@@ -94,8 +91,12 @@ const signinController = async (req, res) => {
         console.log(existing_user);
 
         if (existing_user) {
-            const jwt_token = jwt.sign({ username: existing_user.username, email: existing_user.email }, process.env.JWT_SECRET)
+            const jwt_token = jwt.sign({ email: existing_user.email }, process.env.JWT_SECRET)
             
+            // console.log("----------------");
+            // console.log(jwt_token);
+            // console.log("-----------------");
+
             res.json({
                 jwt_token,
                 msg: 'Signed in sucessfully',
@@ -175,11 +176,19 @@ const addedeventsController = async (req, res) => {
     }
 }
 
-const eventsController = async (req, res) => {
+const geteventsController = async (req, res) => {
 
+    const getevents = await Events.find();
 
+    if(getevents){
+        res.json({
+            getevents
+        })
+    }else{
+        res.json({
+            msg : "Seems Like There are no events for now"
+        })
+    }
 }
 
-
-
-module.exports = { signupController, signinController, addedeventsController }
+module.exports = { signupController, signinController, addedeventsController , geteventsController}
