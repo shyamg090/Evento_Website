@@ -27,12 +27,13 @@ const event_schema = new mongoose.Schema({
     time: String,
     price: Number,
     category: String,
-    image : String,
+    eventimage : String,
     intrested: Array,
-    byuser : {
-        type : mongoose.Schema.Types.ObjectId,
-        ref : 'User'
-    }//get the user by the help of jwt keep email id as reference
+    byuser : String
+    // byuser : {
+    //     type : mongoose.Schema.Types.ObjectId,
+    //     ref : 'User'
+    // }//get the user by the help of jwt keep email id as reference
 })
 
 const User = mongoose.model('User', user_schema);
