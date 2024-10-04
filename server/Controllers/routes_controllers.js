@@ -191,4 +191,54 @@ const geteventsController = async (req, res) => {
     }
 }
 
-module.exports = { signupController, signinController, addedeventsController , geteventsController}
+const geteventIdController = async (req, res) => {
+
+    const getevent = await Events.findById( req.params.id );
+
+    if(getevent){
+        res.json({
+            getevent
+        })
+    }else{
+        res.json({
+            msg : "Seems Like There are no events for now"
+        })
+    }
+}
+
+const editeventController = async (req, res, next)=>{
+
+    const updatedEvent = await Events.findByIdAndUpdate( req.params.id, req.body, { new : true } );
+
+    if(updatedEvent){
+        res.json('Event Updated Sucessfully');
+    }else{
+        res.json('Seems like there was an error while updating')
+    }
+}
+
+const deleteeventController = async (req, res)=>{
+
+    const deleted = await Events.findByIdAndDelete( req.params.id );
+
+    if(deleted){
+        res.json({
+            msg : "Event Deleted Successfully!!"
+        })
+    }
+    else{
+        res.json({
+            msg : "seems like there was an error while deleting!!"
+        })
+    }
+}
+
+module.exports = { 
+    signupController, 
+    signinController, 
+    addedeventsController , 
+    geteventsController, 
+    geteventIdController,
+    editeventController,
+    deleteeventController
+}
