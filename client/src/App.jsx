@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar"
+import Home from "./pages/Home"
 
 function App() {
 
@@ -6,7 +7,7 @@ function App() {
     <>
       <h1>
         <Navbar/>
-        hello world
+        <Home/>
       </h1>
     </>
   )

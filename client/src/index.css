@@ -1,3 +1,63 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+*{
+    font-family: "Plus Jakarta Sans", sans-serif;
+    font-weight: 500;
+
+}
+
+@layer components{
+    .font-navbar{
+        @apply font-[Afacad_Flux] font-bold tracking-normal uppercase text-white
+    }
+
+    .font-primary{
+        @apply font-[Afacad_Flux]
+
+    }
+
+    .text-red{
+        @apply text-[#e41312]
+    }
+    .bg-red{
+        @apply bg-[#e41312]
+    }
+    .bg-gray{
+        @apply bg-gray-100
+    }
+
+    .text-gray{
+        @apply text-[#cbcccd]
+    }
+
+    .text-white{
+        @apply text-[#ffffff]
+    }
+
+    .text-1{
+        @apply text-black
+    }
+
+    .text-2{
+        @apply text-gray-300
+    }
+    .custom-button{
+        @apply bg-red-600 text-white p-3
+    }
+}
+
+@keyframes slideAnimation {
+    from {
+      transform: translateX(0%);
+    }
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+.custom-animation{
+    display: flex;
+    animation: slideAnimation linear 15s infinite;
+}
