@@ -5,7 +5,6 @@
 *{
     font-family: "Plus Jakarta Sans", sans-serif;
     font-weight: 500;
-
 }
 
 @layer components{
@@ -45,6 +44,10 @@
     }
     .custom-button{
         @apply bg-red-600 text-white p-3
+    }
+
+    .form-input{
+        @apply outline-none bg-gray-200 text-black
     }
 }
 
