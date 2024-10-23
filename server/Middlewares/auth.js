@@ -5,6 +5,7 @@ const user_auth = async (req,res,next) =>{
 
     const jwt_token = req.headers.authorization;
 
+    // console.log(jwt_token);
 
     const validuser = jwt.verify( jwt_token , process.env.JWT_SECRET);
 

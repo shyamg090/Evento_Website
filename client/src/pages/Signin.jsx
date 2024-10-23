@@ -45,71 +45,99 @@ const Signin = () => {
             body: JSON.stringify(formdata),
         });
 
+        console.log(signinres.status);
+
+        if(signinres.status == 404){
+            navigate('/signup')
+        }
+
         if (signinres.status == 200) {
 
             const res = await signinres.json();
+            console.log("200", res);
 
-            localStorage.setItem("auth_token", JSON.stringify(res.jwt));
+            const jwt_user = {
+                jwt_token : res.jwt_token,
+                user : res.username
+            }
 
-            const user = {
-                user: res.username,
-            };
-
+            localStorage.setItem("auth_token", JSON.stringify(jwt_user));
+            console.log(jwt_user);
             navigate("/");
 
-            dispatch(userLoggedin(user));
+            setserverstatus(res);
+            console.log(jwt_user.user);
+
+            dispatch(userLoggedin(jwt_user.user));
         }
+      
 
-        const res = await signinres.json();
+        // const res = await signinres.json();
 
-        console.log(res);
+        // console.log(res);
 
-        setserverstatus(res);
 
     };
 
     return (
-        <div className="w-[100vw] h-[100vh] flex flex-col items-center justify-center">
+        <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
             <form
-                className="flex flex-col bg-gray-200 gap-4 text-[2rem] "
+                className="bg-white p-8 rounded-lg shadow-lg flex flex-col gap-6 w-full max-w-md"
                 onSubmit={handleSubmit}
             >
+                <h2 className="text-3xl text-center font-bold text-red-600">Sign In</h2>
+                
                 <input
-                    className="form-input"
+                    className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
                     type="text"
                     placeholder="Username"
                     name="username"
                     onChange={fillform}
-                    value={formdata.name}
+                    value={formdata.username} // Changed from name to username
+                    required
                 />
+                
                 <input
-                    className="form-input"
-                    type="text"
-                    placeholder="email"
+                    className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+                    type="email" // Changed type to email for better validation
+                    placeholder="Email"
                     name="email"
                     onChange={fillform}
                     value={formdata.email}
+                    required
                 />
+                
                 <input
-                    className="form-input"
-                    type="number"
-                    placeholder="phone"
+                    className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+                    type="tel" // Changed type to tel for better input handling
+                    placeholder="Phone"
                     name="phone"
                     onChange={fillform}
                     value={formdata.phone}
+                    required
                 />
+                
                 <input
-                    className="form-input"
+                    className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
                     type="password"
                     placeholder="Password"
                     name="password"
                     onChange={fillform}
                     value={formdata.password}
+                    required
                 />
-                <button type="submit">Signin </button>
+                
+                <button
+                    type="submit"
+                    className="bg-red-600 text-white font-semibold py-2 rounded-lg shadow hover:bg-red-700 transition duration-200"
+                >
+                    Sign In
+                </button>
+
+                {serverstatus.msg && <h1 className="text-center text-red-600">{serverstatus.msg}</h1>}
             </form>
-            <h1>{serverstatus.msg}</h1>
         </div>
+
     );
 };
 

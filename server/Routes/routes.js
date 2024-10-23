@@ -1,5 +1,5 @@
 const express = require('express')
-const { signupController, signinController, addedeventsController, geteventsController, geteventIdController, deleteeventController, editeventController } = require('../Controllers/routes_controllers');
+const { signupController, signinController, addedeventsController, geteventsController, geteventIdController, deleteeventController, editeventController, getusereventsController } = require('../Controllers/routes_controllers');
 const { user_auth } = require('../Middlewares/auth');
 require('dotenv').config()
 
@@ -27,11 +27,12 @@ router.post('/user/addevent', user_auth , upload.single('eventimage') , addedeve
 
 router.get('/events', geteventsController)
 
-router.get('/events/:id', geteventIdController )
+router.get('/events/:id', geteventIdController)
+
+router.get('/users/events', user_auth , getusereventsController);
 
 router.put('/events/:id', user_auth , upload.single('eventimage') , editeventController);
 
 router.delete('/events/:id', user_auth, deleteeventController);
-
 
 module.exports = { router }

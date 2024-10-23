@@ -13,8 +13,8 @@ const Landing = () => {
             <div className="bg-white flex flex-col w-[90%] lg:w-[40%] mx-auto p-4 gap-4 relative -bottom-16 lg:absolute lg:bottom-0 shadow-2xl">
                 <div className="flex items-center justify-center gap-2">
                     {
-                        star.map(() => {
-                            return <TiStarFullOutline className="text-yellow-400 w-[2rem] h-[2rem]" />
+                        star.map((_, id) => {
+                            return <TiStarFullOutline key={id} className="text-yellow-400 w-[2rem] h-[2rem]" />
                         })
                     }
                 </div>

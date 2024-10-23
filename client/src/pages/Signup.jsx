@@ -46,15 +46,62 @@ const Signup = () => {
     };
 
     return (
-        <div className="w-[100vw] h-[100vh] flex items-center justify-center">
-            <form className="flex flex-col bg-gray-200 gap-4 text-[2rem] " onSubmit={handleSubmit}>
-                <input className="form-input" type='text' placeholder="Username" name="username" onChange={fillform} value={formdata.name} />
-                <input className="form-input" type='text' placeholder="email" name="email" onChange={fillform} value={formdata.email} />
-                <input className="form-input" type='number' placeholder="phone" name="phone" onChange={fillform} value={formdata.phone} />
-                <input className="form-input" type='password' placeholder="Password" name="password" onChange={fillform} value={formdata.password} />
-                <button type="submit">Signup </button>
+        <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
+            <form
+                className="bg-white p-8 rounded-lg shadow-lg flex flex-col gap-6 w-full max-w-md"
+                onSubmit={handleSubmit}
+            >
+                <h2 className="text-3xl text-center font-bold text-red-600">Sign Up</h2>
+                
+                <input
+                    className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+                    type="text"
+                    placeholder="Username"
+                    name="username"
+                    onChange={fillform}
+                    value={formdata.username} // Changed from name to username
+                    required
+                />
+                
+                <input
+                    className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+                    type="email" // Changed type to email for better validation
+                    placeholder="Email"
+                    name="email"
+                    onChange={fillform}
+                    value={formdata.email}
+                    required
+                />
+                
+                <input
+                    className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+                    type="tel" // Changed type to tel for better input handling
+                    placeholder="Phone"
+                    name="phone"
+                    onChange={fillform}
+                    value={formdata.phone}
+                    required
+                />
+                
+                <input
+                    className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
+                    type="password"
+                    placeholder="Password"
+                    name="password"
+                    onChange={fillform}
+                    value={formdata.password}
+                    required
+                />
+                
+                <button
+                    type="submit"
+                    className="bg-red-600 text-white font-semibold py-2 rounded-lg shadow hover:bg-red-700 transition duration-200"
+                >
+                    Sign Up
+                </button>
+
+                {serverstatus.msg && <h1 className="text-center text-red-600">{serverstatus.msg}</h1>}
             </form>
-            <h1>{serverstatus.msg}</h1>
         </div>
     )
 }

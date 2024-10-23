@@ -1,19 +1,59 @@
 import { useLocation } from 'react-router-dom'
 import logo from '../assets/evento.png'
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Navbar = () => {
-    const location = useLocation();
 
     const user = useSelector((state) => state.auth.user);
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-    console.log(user);
-    console.log(isAuthenticated);
-    // const { username, email } = location.state || { username: "", email: "" }
-    const navbar = isAuthenticated ? ['Home', 'About', user , 'Add Event'] : ['Home', 'About', 'Events', 'Sign in', 'Sign up']
+    const navbarA = [
+        {
+            name: 'Home',
+            path: '/'
+        },
+        {
+            name: 'About',
+            path: '/about'
+        },
+        {
+            name: 'Add Event',
+            path: '/addevent'
+        },
+        {
+            name: 'events',
+            path: '/events'
+        },
+        {
+            name: `👋 ${user}`,
+            path: '/user'
+        },
+    ]
+    const navbarB = [
+        {
+            name: 'Home',
+            path: '/'
+        },
+        {
+            name: 'About',
+            path: '/about'
+        },
+        {
+            name: 'events',
+            path: '/events'
+        },
+        {
+            name: 'Sign in',
+            path: '/signin'
+        },
+        {
+            name: 'Sign up',
+            path: '/signup'
+        },
+    ]
 
-    // const navbar = ['Home', 'About', 'Events', 'Sign in', 'Sign up'];
+    const navbar = isAuthenticated ? navbarA : navbarB
 
     return (
         <div className='bg-red'>
@@ -23,7 +63,7 @@ const Navbar = () => {
                 <div className='hidden lg:flex items-center justify-evenly gap-16 text-[1.2rem] p-4'>
                     {
                         navbar.map((item, id) => {
-                            return <li key={id}>{item}</li>
+                            return <Link  key={id} to={`${item.path}`}> <li>{item.name}</li></Link>
                         })
                     }
                 </div>
