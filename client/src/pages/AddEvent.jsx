@@ -197,7 +197,7 @@ const AddEvent = () => {
                                     <input
                                         type="file"
                                         name="eventimage"
-                                        accept="image/png, image/jpeg"
+                                        accept="image/png, image/jpeg, image/webp"
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
                                         required
