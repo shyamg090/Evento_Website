@@ -13,6 +13,7 @@ import Events from "./pages/Events.jsx";
 import AddEvent from "./pages/AddEvent.jsx";
 import User from "./pages/User.jsx";
 import EventsInfo from "./pages/EventsInfo.jsx";
+import EditEvent from "./pages/EditEvent.jsx";
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
           <Route path='/addevent' element={<Layout>  <AddEvent /> </Layout>} />
           <Route path='/user' element={<Layout>  <User /> </Layout>} />
           <Route path='/events/:id' element={<Layout>  <EventsInfo /> </Layout>} />
+          <Route path='/user/editevents' element={<Layout>  <EditEvent /> </Layout>} />
 
           <Route path='/*' element={<Error />} />
 

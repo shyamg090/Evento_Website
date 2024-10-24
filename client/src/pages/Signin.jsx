@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { userLoggedin } from "../Redux/slices/AuthSlice";
 
 const Signin = () => {
@@ -80,7 +80,7 @@ const Signin = () => {
     };
 
     return (
-        <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
+        <div className="w-screen h-screen flex flex-col items-center justify-center gap-4 bg-gray-100">
             <form
                 className="bg-white p-8 rounded-lg shadow-lg flex flex-col gap-6 w-full max-w-md"
                 onSubmit={handleSubmit}
@@ -136,6 +136,9 @@ const Signin = () => {
 
                 {serverstatus.msg && <h1 className="text-center text-red-600">{serverstatus.msg}</h1>}
             </form>
+            <div>
+                <h1>Don't have an account? <Link to={'/signup'} className="text-red-600">Sign up</Link></h1>
+            </div>
         </div>
 
     );

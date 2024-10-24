@@ -1,23 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ConfirmationCard from './ConfirmationCard';
+import { useDispatch, useSelector } from 'react-redux';
 
-const AddEvent = () => {
+const EditEvent = () => {
     const [message, setmessage] = useState('');
 
-    const initial_form = {
-        eventname: '',
-        hostedby: '',
-        description: '',
-        location: '',
-        date: '',
-        time: '',
-        price: '',
-        category: '',
-        eventimage: null
-    };
+    const dispatch = useDispatch();
+
+    const editevent = useSelector((state) => state.events.editingevent);
+
+    const initial_form = editevent;
+    // console.log(initial_form);
 
     const [formData, setFormData] = useState(initial_form);
-
+    // console.log(formData);
     const handleChange = (e) => {
 
         const { name, value, type, files } = e.target;
@@ -43,14 +39,12 @@ const AddEvent = () => {
             form.append(key, formData[key]); // Append each field to FormData
         }
 
-        console.log();
-
         const token = JSON.parse(localStorage.getItem('auth_token')).jwt_token
 
         try {
 
-            const formRes = await fetch('http://localhost:2002/user/addevent', {
-                method: 'POST',
+            const formRes = await fetch(`http://localhost:2002/events/${editevent._id}`, {
+                method: 'PUT',
                 headers: {
                     'Authorization': `${token}`
                 },
@@ -61,7 +55,7 @@ const AddEvent = () => {
             const formdata = await formRes.json();
 
             setmessage(formdata.msg);
-
+            // dispatch(cleareditevent());
             setFormData(initial_form);
             // console.log(formData);
         } catch (e) {
@@ -77,10 +71,10 @@ const AddEvent = () => {
     return (
         <>
             {
-                message.length !== 0 ? <ConfirmationCard message={message}/> :
+                message.length !== 0 ? <ConfirmationCard message={message} /> :
                     <div className="bg-gray-100 min-h-screen flex justify-center items-center lg:p-[4rem]">
                         <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-lg">
-                            <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">Create an Event</h2>
+                            <h2 className="text-3xl font-bold text-red-600 mb-8 text-center">Edit an Event</h2>
                             <form onSubmit={handleSubmit} className="space-y-6">
                                 <div>
                                     <label className="block text-gray-700">Event Name</label>
@@ -114,7 +108,7 @@ const AddEvent = () => {
                                     <label className="block text-gray-700">Description</label>
                                     <textarea
                                         name="description"
-                                        maxLength="600"
+                                        maxLength="400"
                                         value={formData.description}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
@@ -183,7 +177,7 @@ const AddEvent = () => {
                                     <input
                                         type="text"
                                         name="category"
-                                        maxLength= "20"
+                                        maxLength="20"
                                         value={formData.category}
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
@@ -200,7 +194,6 @@ const AddEvent = () => {
                                         accept="image/png, image/jpeg"
                                         onChange={handleChange}
                                         className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
-                                        required
                                     />
                                 </div>
 
@@ -219,4 +212,4 @@ const AddEvent = () => {
     );
 };
 
-export default AddEvent;
+export default EditEvent;

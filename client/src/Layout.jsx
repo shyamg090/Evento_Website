@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { userLoggedin } from "./Redux/slices/AuthSlice";
 import { saveevents } from "./Redux/slices/EventsSlice";
 
-
 const Layout = ({ children }) => {
 
   const dispatch = useDispatch();
@@ -19,13 +18,12 @@ const Layout = ({ children }) => {
     }
   }
 
-  const getevents = async()=>{
-
+  const getevents = async () => {
     const events = await fetch('http://localhost:2002/events');
-// console.log(events);
+    // console.log(events);
     const eventsdata = await events.json();
-
-    dispatch(saveevents(eventsdata.getevents))
+    // console.log(eventsdata);
+    dispatch(saveevents(eventsdata.getevents));
   }
 
   useEffect(() => {

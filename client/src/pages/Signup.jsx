@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { json, useNavigate } from "react-router-dom";
+import { json, Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
 
@@ -46,7 +46,7 @@ const Signup = () => {
     };
 
     return (
-        <div className="w-screen h-screen flex items-center justify-center bg-gray-100">
+        <div className="w-screen h-screen flex flex-col items-center justify-center gap-4 bg-gray-100">
             <form
                 className="bg-white p-8 rounded-lg shadow-lg flex flex-col gap-6 w-full max-w-md"
                 onSubmit={handleSubmit}
@@ -102,6 +102,9 @@ const Signup = () => {
 
                 {serverstatus.msg && <h1 className="text-center text-red-600">{serverstatus.msg}</h1>}
             </form>
+            <div>
+                <h1>Already Have an account? <Link to={'/signin'} className="text-red-600">Sign in</Link></h1>
+            </div>
         </div>
     )
 }

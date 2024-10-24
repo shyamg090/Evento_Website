@@ -59,7 +59,7 @@ const EventsInfo = () => {
                     </div>
                     <div className="flex items-center gap-2">
                         <span className="font-semibold border-b-2 border-b-red-600">Category:</span>
-                        <p>{event.category}</p>
+                        <p className="w-fit">{event.category}</p>
                     </div>
                 </div>
             </div>

@@ -1,42 +1,71 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { editevent } from '../Redux/slices/EventsSlice';
 
 const User = () => {
-  // Sample event data (you can replace this with real data from a backend API)
-  const [events, setEvents] = useState([
-    {
-      id: 1,
-      eventname: 'Tech Meetup',
-      hostedby: 'John Doe',
-      date: '2024-10-15',
-      location: 'New York City',
-      imageUrl: 'https://source.unsplash.com/400x300/?meetup',
-    },
-    {
-      id: 2,
-      eventname: 'Startup Pitch Night',
-      hostedby: 'Jane Smith',
-      date: '2024-11-01',
-      location: 'San Francisco',
-      imageUrl: 'https://source.unsplash.com/400x300/?startup',
-    },
-    // Add more events as needed
-  ]);
+
+  const [events, setEvents] = useState([]);
+  const [user, setuser] = useState({});
+  const [msg, setmsg] = useState('')
 
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  // Function to handle event deletion
-  const handleDelete = (id) => {
-    const confirmed = window.confirm('Are you sure you want to delete this event?');
-    if (confirmed) {
-      setEvents(events.filter((event) => event.id !== id));
-    }
+  const token = JSON.parse(localStorage.getItem('auth_token')).jwt_token;
+
+  const getevents = async () => {
+    const eventsjson = await fetch('http://localhost:2002/users/events', {
+      method: 'GET',
+      headers: {
+        'Authorization': `${token}`
+      },
+    })
+    // console.log(formRes);
+
+    const events = await eventsjson.json();
+
+    console.log(events);
+    setuser(events.user)
+    setEvents(events.user.addedevents);
+  }
+
+  useEffect(() => {
+    getevents();
+  }, [msg])
+
+  const handleDelete = async (id) => {
+
+    const eventsjson = await fetch(`http://localhost:2002/events/${id}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `${token}`
+      },
+    })
+
+    const events = await eventsjson.json();
+    setmsg(events.msg);
   };
 
-  // Function to handle editing an event
   const handleEdit = (id) => {
-    navigate(`/addevent/${id}`);
+    // console.log(user.addedevents);
+
+    const [toBeEdited] = user.addedevents.filter((item)=>{
+      return item._id == id;
+    })
+
+    console.log(toBeEdited);
+
+    dispatch(editevent(toBeEdited));
+
+    navigate(`/user/editevents`);
   };
+
+  if (events.length === 0) {
+    return <div className="min-h-screen bg-gray-100 text-black py-16 px-8 md:px-24">
+      <h1 className="text-4xl font-bold text-red-600 mb-12 text-center">Seems Like You have Not Added Events yet!!</h1>
+    </div>
+  }
 
   return (
     <div className="min-h-screen bg-gray-100 text-black py-16 px-8 md:px-24">
@@ -44,13 +73,13 @@ const User = () => {
 
       {/* Event List */}
       <div className="grid md:grid-cols-2 gap-8">
-        {events.map((event) => (
+        {events.map((event, id) => (
           <div
-            key={event.id}
+            key={id}
             className="bg-white rounded-lg shadow-lg overflow-hidden flex flex-col">
             {/* Event Image */}
             <img
-              src={event.imageUrl}
+              src={event.eventimage}
               alt={event.eventname}
               className="w-full h-56 object-cover"
             />
@@ -65,12 +94,12 @@ const User = () => {
               {/* Action Buttons */}
               <div className="flex justify-between mt-4">
                 <button
-                  onClick={() => handleEdit(event.id)}
+                  onClick={() => handleEdit(event._id)}
                   className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition duration-300">
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(event.id)}
+                  onClick={() => handleDelete(event._id)}
                   className="px-4 py-2 bg-gray-200 text-red-600 rounded-lg hover:bg-gray-300 transition duration-300">
                   Delete
                 </button>

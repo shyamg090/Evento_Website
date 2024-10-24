@@ -22,7 +22,7 @@ const signupController = async (req, res) => {
             msg: "Enter the details in correct format please!"
         })
     }
-    console.log(valid_user);
+    // console.log(valid_user);
     const { username, email, phone, password } = valid_user.data;
 
     try {
@@ -119,6 +119,8 @@ const signinController = async (req, res) => {
 
 const addedeventsController = async (req, res) => {
 
+    // console.log(req.email);
+
     if (!req.file) {
         return res.status(400).send('No file uploaded or file type is not an image.');
     }
@@ -171,6 +173,7 @@ const addedeventsController = async (req, res) => {
     const saved_event = await new_event.save();
 
     const user = await User.findOne({ email: req.email });
+    
     // console.log(user);
 
     user.addedevents.push(saved_event._id);
@@ -213,6 +216,7 @@ const geteventIdController = async (req, res) => {
         })
     }
 }
+
 const getusereventsController = async (req, res, next) => {
     try {
         const user = await User.findOne({ email: req.email }).populate('addedevents');
@@ -220,6 +224,7 @@ const getusereventsController = async (req, res, next) => {
         res.status(200).json({
             user
         })
+
     } catch (error) {
         res.status(404).json({
             msg: "User Not Found to get events"
@@ -232,15 +237,29 @@ const editeventController = async (req, res, next) => {
     const updatedEvent = await Events.findByIdAndUpdate(req.params.id, req.body, { new: true });
 
     if (updatedEvent) {
-        res.json('Event Updated Sucessfully');
+        res.json({msg : 'Event Updated Sucessfully'});
     } else {
-        res.json('Seems like there was an error while updating')
+        res.json({msg : 'Seems like there was an error while updating'})
     }
 }
 
 const deleteeventController = async (req, res) => {
 
     const deleted = await Events.findByIdAndDelete(req.params.id);
+    const deletefromuser = await User.findOne({email : req.email});
+    // console.log(deletefromuser.addedevents);
+
+    const updatedUserEvents = deletefromuser.addedevents.filter((item)=>{
+        return item != req.params.id
+    }) 
+
+    const updatedUser = await User.findByIdAndUpdate(
+        deletefromuser._id,
+        { $set: { addedevents: updatedUserEvents } },  // Use $set to update only addedevents
+        { new: true }  // This option returns the updated document
+      );
+
+      await updatedUser.save();
 
     if (deleted) {
         res.json({
