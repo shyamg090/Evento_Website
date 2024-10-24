@@ -19,7 +19,7 @@ const Layout = ({ children }) => {
   }
 
   const getevents = async () => {
-    const events = await fetch('http://localhost:2002/events');
+    const events = await fetch('https://evento-website.onrender.com/events');
     // console.log(events);
     const eventsdata = await events.json();
     // console.log(eventsdata);

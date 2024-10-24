@@ -27,7 +27,7 @@ const Signup = () => {
 
         e.preventDefault();
 
-        const signupres = await fetch('http://localhost:2002/signup', {
+        const signupres = await fetch('https://evento-website.onrender.com/signup', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -49,7 +49,7 @@ const AddEvent = () => {
 
         try {
 
-            const formRes = await fetch('http://localhost:2002/user/addevent', {
+            const formRes = await fetch('https://evento-website.onrender.com/user/addevent', {
                 method: 'POST',
                 headers: {
                     'Authorization': `${token}`

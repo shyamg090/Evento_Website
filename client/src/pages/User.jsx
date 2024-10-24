@@ -15,7 +15,7 @@ const User = () => {
   const token = JSON.parse(localStorage.getItem('auth_token')).jwt_token;
 
   const getevents = async () => {
-    const eventsjson = await fetch('http://localhost:2002/users/events', {
+    const eventsjson = await fetch('https://evento-website.onrender.com/users/events', {
       method: 'GET',
       headers: {
         'Authorization': `${token}`

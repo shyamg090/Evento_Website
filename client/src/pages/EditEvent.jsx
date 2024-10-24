@@ -43,7 +43,7 @@ const EditEvent = () => {
 
         try {
 
-            const formRes = await fetch(`http://localhost:2002/events/${editevent._id}`, {
+            const formRes = await fetch(`https://evento-website.onrender.com/events/${editevent._id}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `${token}`

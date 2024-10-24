@@ -11,7 +11,7 @@ const EventsInfo = () => {
 
         const getOneEvent = async () => {
 
-            const event = await fetch(`http://localhost:2002/events/${query.id}`);
+            const event = await fetch(`https://evento-website.onrender.com/events/${query.id}`);
 
             const eventdata = await event.json();
 
