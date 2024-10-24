@@ -29,7 +29,7 @@ function App() {
           <Route path='/events/:id' element={<Layout>  <EventsInfo /> </Layout>} />
           <Route path='/user/editevents' element={<Layout>  <EditEvent /> </Layout>} />
 
-          <Route path='/*' element={<Error />} />
+          <Route path='*' element={<Error />} />
 
           <Route path='/signup' element={<Signup />} />
           <Route path='/signin' element={<Signin />} />
