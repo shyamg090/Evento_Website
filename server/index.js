@@ -2,6 +2,8 @@ const express = require('express');
 const { router } = require('./Routes/routes');
 require('dotenv').config()
 
+const PORT = process.env.PORT || 4000
+
 const cors = require('cors');
 
 const app = express();
@@ -22,6 +24,6 @@ app.use('/', router)
 //     })
 // } )
 
-app.listen(process.env.PORT, ()=>{
+app.listen(PORT, ()=>{
     console.log('The server has started');
 })
