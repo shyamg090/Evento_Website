@@ -36,7 +36,7 @@ const User = () => {
 
   const handleDelete = async (id) => {
 
-    const eventsjson = await fetch(`http://localhost:2002/events/${id}`, {
+    const eventsjson = await fetch(`https://evento-website.onrender.com/events/${id}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `${token}`
