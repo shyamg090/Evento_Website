@@ -3,12 +3,23 @@ import { BsCalendarDateFill } from "react-icons/bs";
 import { IoIosTime } from "react-icons/io";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Events = () => {
+  const [apievent, setapievent] = useState()
 
     const eventimage = "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F871983179%2F1928625884443%2F1%2Foriginal.20241010-224759?h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&s=025875a4d4ba7d0dab430352d38bde15"
 
-    const api_events = useSelector((state) => state.events);
+    useEffect(()=>{
+
+      const getevents = ()=>{
+        const api_events = useSelector((state) => state.events);
+        setapievent(api_events)
+      }
+
+      getevents();
+
+    },[])
 
     return (
         <div className="min-h-screen bg-gray-100 text-black py-16 px-8 md:px-24">
@@ -16,7 +27,7 @@ const Events = () => {
       
         {/* Event List */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {api_events.events.map((item, id) => (
+          {apievent.events.map((item, id) => (
             <Link key={id} to={`/events/${item._id}`} className="flex flex-col bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-2xl transition duration-300">
               {/* Event Image */}
               <div
