@@ -11,6 +11,10 @@ const user_zod_schema = z.object({
     phone: z.string().min(10),
     password: z.string().min(8)
 })
+const user_zod_schema_signin = z.object({
+    email: z.string().email(),
+    password: z.string().min(8)
+})
 
 const signupController = async (req, res) => {
 
@@ -71,22 +75,21 @@ const signupController = async (req, res) => {
 
 const signinController = async (req, res) => {
 
-    const valid_user = user_zod_schema.safeParse(req.body);
+    const valid_user = user_zod_schema_signin.safeParse(req.body);
+
     if (!valid_user.success) {
         res.status(400).json({
             msg: "Enter the details in correct format please!"
         })
     }
     // console.log(valid_user);
-    const { username, email, phone, password } = valid_user.data;
+    const { email, password } = valid_user.data;
 
     try {
 
         const existing_user = await User.findOne(
             {
-                username: username,
                 email: email,
-                phone: phone,
                 password: password,
             })
         // console.log(existing_user);

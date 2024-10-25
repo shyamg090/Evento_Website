@@ -7,10 +7,8 @@ const Signin = () => {
     const location = useLocation();
     const dispatch = useDispatch();
 
-    const { username, email, phone, password } = location.state || {
-        username: "",
+    const { email, password } = location.state || {
         email: "",
-        phone: "",
         password: "",
     };
 
@@ -19,9 +17,7 @@ const Signin = () => {
     const [serverstatus, setserverstatus] = useState({});
 
     const [formdata, setformData] = useState({
-        username: username,
         email: email,
-        phone: phone,
         password: password,
     });
 
@@ -86,7 +82,7 @@ const Signin = () => {
                 onSubmit={handleSubmit}
             >
                 <h2 className="text-3xl text-center font-bold text-red-600">Sign In</h2>
-                
+                    {/*          
                 <input
                     className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
                     type="text"
@@ -96,6 +92,9 @@ const Signin = () => {
                     value={formdata.username} // Changed from name to username
                     required
                 />
+  
+
+                */}
                 
                 <input
                     className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
@@ -107,7 +106,7 @@ const Signin = () => {
                     required
                 />
                 
-                <input
+                {/* <input
                     className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
                     type="tel" // Changed type to tel for better input handling
                     placeholder="Phone"
@@ -115,7 +114,7 @@ const Signin = () => {
                     onChange={fillform}
                     value={formdata.phone}
                     required
-                />
+                /> */}
                 
                 <input
                     className="form-input px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-600"
