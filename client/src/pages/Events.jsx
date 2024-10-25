@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Events = () => {
-  const [apievent, setapievent] = useState()
+  const [apievent, setapievent] = useState([])
 
     const eventimage = "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F871983179%2F1928625884443%2F1%2Foriginal.20241010-224759?h=230&w=460&auto=format%2Ccompress&q=75&sharp=10&s=025875a4d4ba7d0dab430352d38bde15"
 
